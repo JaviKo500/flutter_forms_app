@@ -5,9 +5,8 @@ sealed class CounterEvent{
 }
 
 class CounterIncreased extends CounterEvent {
-
   final int value;
-
   CounterIncreased( this.value );
-
 }
+
+class CounterReset extends CounterEvent {}

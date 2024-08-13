@@ -17,16 +17,21 @@ class BlockCounterScreen extends StatelessWidget {
 class _BlocCounterView extends StatelessWidget {
   const _BlocCounterView();
   void increaseCounterBy( BuildContext context, [ int value = 1 ] ) {
-     context.read<CounterBloc>().add( CounterIncreased( value ) );
+    context.read<CounterBloc>().add( CounterIncreased( value ) );
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Block Counter Screen', style: TextStyle()),
+        title: context.select(( CounterBloc value) {
+          return Text(
+            'Block Counter Screen: ${ value.state.transactionCount }', 
+            style: const TextStyle()
+          );
+        }), 
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () => context.read<CounterBloc>().add( CounterReset() ),
             icon: const Icon(Icons.refresh_rounded),
           ),
         ],
