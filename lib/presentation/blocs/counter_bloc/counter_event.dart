@@ -1,4 +1,13 @@
 part of 'counter_bloc.dart';
 
-@immutable
-sealed class CounterEvent {}
+sealed class CounterEvent{
+  const CounterEvent();
+}
+
+class CounterIncreased extends CounterEvent {
+
+  final int value;
+
+  CounterIncreased( this.value );
+
+}
