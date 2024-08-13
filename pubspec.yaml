@@ -1,14 +1,15 @@
 name: forms_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.4 <4.0.0'
+  sdk: ">=3.4.4 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  flutter_bloc: ^8.1.6
   flutter_local_notifications_support: ^8.2.0
   go_router: ^14.2.3
 

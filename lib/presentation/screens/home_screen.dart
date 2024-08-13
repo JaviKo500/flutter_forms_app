@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               style: TextStyle()
             ),
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
-            onTap: () => context.push('/blocks'),
+            onTap: () => context.push('/blocs'),
           )
         ],
       ),
