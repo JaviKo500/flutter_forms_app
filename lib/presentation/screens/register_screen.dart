@@ -39,15 +39,33 @@ class _RegisterView extends StatelessWidget {
   }
 }
 
-class _RegisterForm extends StatelessWidget {
+class _RegisterForm extends StatefulWidget {
   const _RegisterForm({super.key});
 
   @override
+  State<_RegisterForm> createState() => _RegisterFormState();
+}
+
+class _RegisterFormState extends State<_RegisterForm> {
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  String username = '';
+  String email = '';
+  String password = '';
+  @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Column(
         children: [
           CustomTextFormField(
+            onChange: (value) => username = value,
+            validator: (value) {
+              if ( value == null || value.isEmpty ) return 'Field is required';
+              if ( value.trim().isEmpty ) return 'Field is required';
+              if ( value.trim().length < 6 ) return 'Requires min 6 characters';
+              return null;
+            },
             label: 'Username',
             hintText: 'Jk name',
             prefixIcon: Icons.supervised_user_circle_rounded,
@@ -56,6 +74,16 @@ class _RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextFormField(
+            onChange: (value) => email = value,
+            validator: (value) {
+              if ( value == null || value.isEmpty ) return 'Field is required';
+              if ( value.trim().isEmpty ) return 'Field is required';
+              final emailRegExp = RegExp(
+                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
+              );
+              if ( !emailRegExp.hasMatch( value ) ) return 'Email is invalid';
+              return null;
+            },
             label: 'Email',
             hintText: 'example@mail.com',
             prefixIcon: Icons.email_rounded,
@@ -64,6 +92,13 @@ class _RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextFormField(
+            onChange: (value) => password = value,
+            validator: (value) {
+              if ( value == null || value.isEmpty ) return 'Field is required';
+              if ( value.trim().isEmpty ) return 'Field is required';
+              if ( value.trim().length < 6 ) return 'Requires min 6 characters';
+              return null;
+            },
             label: 'Password',
             hintText: '*****',
             prefixIcon: Icons.lock,
@@ -73,7 +108,13 @@ class _RegisterForm extends StatelessWidget {
             height: 20,
           ),
           FilledButton.tonalIcon(
-            onPressed: () {},
+            onPressed: () {
+              final isValid = _formKey.currentState!.validate();
+              if ( !isValid ) return; 
+              print(username);
+              print(email);
+              print(password);
+            },
             label: const Text('Create user', style: TextStyle()),
             icon: const Icon(Icons.save),
           ),
