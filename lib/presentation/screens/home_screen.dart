@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
             trailing: const Icon(Icons.arrow_forward_ios_rounded),
             onTap: () => context.push('/cubits'),
           ),
-           ListTile(
+          ListTile(
             title: const Text(
               'Blocks',
               style: TextStyle()
@@ -38,7 +38,19 @@ class HomeScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric( horizontal: 10 ),
             child: Divider(),
-          )
+          ),
+          ListTile(
+            title: const Text(
+              'New user',
+              style: TextStyle()
+            ),
+            subtitle: const Text(
+              'Management forms',
+              style: TextStyle()
+            ),
+            trailing: const Icon(Icons.arrow_forward_ios_rounded),
+            onTap: () => context.push('/new-user'),
+          ),
         ],
       ),
     );
