@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:forms_app/presentation/widgets/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
   const RegisterScreen({super.key});
@@ -46,9 +47,13 @@ class _RegisterForm extends StatelessWidget {
     return Form(
       child: Column(
         children: [
-          TextFormField(),
+          CustomTextFormField(),
           const SizedBox(
-            height: 24,
+            height: 20,
+          ),
+          CustomTextFormField(),
+          const SizedBox(
+            height: 20,
           ),
           FilledButton.tonalIcon(
             onPressed: () {},
