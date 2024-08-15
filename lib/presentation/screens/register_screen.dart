@@ -47,11 +47,28 @@ class _RegisterForm extends StatelessWidget {
     return Form(
       child: Column(
         children: [
-          CustomTextFormField(),
+          CustomTextFormField(
+            label: 'Username',
+            hintText: 'Jk name',
+            prefixIcon: Icons.supervised_user_circle_rounded,
+          ),
           const SizedBox(
             height: 20,
           ),
-          CustomTextFormField(),
+          CustomTextFormField(
+            label: 'Email',
+            hintText: 'example@mail.com',
+            prefixIcon: Icons.email_rounded,
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          CustomTextFormField(
+            label: 'Password',
+            hintText: '*****',
+            prefixIcon: Icons.lock,
+            obscureText: true,
+          ),
           const SizedBox(
             height: 20,
           ),
