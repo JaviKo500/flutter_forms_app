@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forms_app/presentation/blocs/register_cubit/register_cubit.dart';
 import 'package:forms_app/presentation/widgets/widgets.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -20,17 +22,20 @@ class _RegisterView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
+    return SafeArea(
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         child: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FlutterLogo(
+              const FlutterLogo(
                 size: 100,
               ),
-              _RegisterForm(),
+              BlocProvider(
+                create: (context) => RegisterCubit(),
+                child: _RegisterForm(),
+              ),
             ],
           ),
         ),
@@ -47,23 +52,24 @@ class _RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<_RegisterForm> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  String username = '';
-  String email = '';
-  String password = '';
+
   @override
   Widget build(BuildContext context) {
+    final registerCubit = context.watch<RegisterCubit>();
     return Form(
       key: _formKey,
       child: Column(
         children: [
           CustomTextFormField(
-            onChange: (value) => username = value,
+            onChange: (value) {
+              registerCubit.usernameChange(value);
+              _formKey.currentState!.validate();
+            },
             validator: (value) {
-              if ( value == null || value.isEmpty ) return 'Field is required';
-              if ( value.trim().isEmpty ) return 'Field is required';
-              if ( value.trim().length < 6 ) return 'Requires min 6 characters';
+              if (value == null || value.isEmpty) return 'Field is required';
+              if (value.trim().isEmpty) return 'Field is required';
+              if (value.trim().length < 6) return 'Requires min 6 characters';
               return null;
             },
             label: 'Username',
@@ -74,14 +80,17 @@ class _RegisterFormState extends State<_RegisterForm> {
             height: 20,
           ),
           CustomTextFormField(
-            onChange: (value) => email = value,
+            onChange: (value) {
+              registerCubit.emailChange(value);
+              _formKey.currentState!.validate();
+            },
             validator: (value) {
-              if ( value == null || value.isEmpty ) return 'Field is required';
-              if ( value.trim().isEmpty ) return 'Field is required';
+              if (value == null || value.isEmpty) return 'Field is required';
+              if (value.trim().isEmpty) return 'Field is required';
               final emailRegExp = RegExp(
                 r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
               );
-              if ( !emailRegExp.hasMatch( value ) ) return 'Email is invalid';
+              if (!emailRegExp.hasMatch(value)) return 'Email is invalid';
               return null;
             },
             label: 'Email',
@@ -92,11 +101,14 @@ class _RegisterFormState extends State<_RegisterForm> {
             height: 20,
           ),
           CustomTextFormField(
-            onChange: (value) => password = value,
+            onChange: (value) {
+              registerCubit.passwordChange(value);
+              _formKey.currentState!.validate();
+            },
             validator: (value) {
-              if ( value == null || value.isEmpty ) return 'Field is required';
-              if ( value.trim().isEmpty ) return 'Field is required';
-              if ( value.trim().length < 6 ) return 'Requires min 6 characters';
+              if (value == null || value.isEmpty) return 'Field is required';
+              if (value.trim().isEmpty) return 'Field is required';
+              if (value.trim().length < 6) return 'Requires min 6 characters';
               return null;
             },
             label: 'Password',
@@ -110,10 +122,8 @@ class _RegisterFormState extends State<_RegisterForm> {
           FilledButton.tonalIcon(
             onPressed: () {
               final isValid = _formKey.currentState!.validate();
-              if ( !isValid ) return; 
-              print(username);
-              print(email);
-              print(password);
+              if (!isValid) return;
+              registerCubit.onSubmit();
             },
             label: const Text('Create user', style: TextStyle()),
             icon: const Icon(Icons.save),

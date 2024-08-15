@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 
 part 'register_cubit_state.dart';
 
-class RegisterCubitCubit extends Cubit<RegisterFormCubitState> {
-  RegisterCubitCubit() : super(const RegisterFormCubitState());
+class RegisterCubit extends Cubit<RegisterFormCubitState> {
+  RegisterCubit() : super(const RegisterFormCubitState());
 
   void onSubmit() {
     print('State');
