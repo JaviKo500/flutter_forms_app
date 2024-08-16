@@ -64,7 +64,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           CustomTextFormField(
             onChange: (value) {
               registerCubit.usernameChange(value);
-              _formKey.currentState!.validate();
+              // _formKey.currentState!.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) return 'Field is required';
@@ -82,7 +82,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           CustomTextFormField(
             onChange: (value) {
               registerCubit.emailChange(value);
-              _formKey.currentState!.validate();
+              // _formKey.currentState!.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) return 'Field is required';
@@ -103,7 +103,7 @@ class _RegisterFormState extends State<_RegisterForm> {
           CustomTextFormField(
             onChange: (value) {
               registerCubit.passwordChange(value);
-              _formKey.currentState!.validate();
+              // _formKey.currentState!.validate();
             },
             validator: (value) {
               if (value == null || value.isEmpty) return 'Field is required';
