@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forms_app/presentation/blocs/register_cubit/register_cubit.dart';
@@ -86,7 +84,7 @@ class _RegisterForm extends StatelessWidget {
             hintText: '*****',
             prefixIcon: Icons.lock,
             obscureText: true,
-            errorMessage: email.errorMessage,
+            errorMessage: password.errorMessage,
           ),
           const SizedBox(
             height: 20,
