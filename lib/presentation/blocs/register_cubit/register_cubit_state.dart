@@ -14,13 +14,13 @@ class RegisterFormCubitState extends Equatable {
   final bool isValid;
   final Username username;
   final String email;
-  final String password;
+  final Password password;
 
   const RegisterFormCubitState({
     this.formStatus = FormStatus.invalid,
     this.username = const Username.pure(), 
     this.email = '', 
-    this.password = '',
+    this.password = const Password.pure(),
     this.isValid = false,
   });
 
@@ -28,7 +28,7 @@ class RegisterFormCubitState extends Equatable {
     FormStatus? formStatus,
     Username? username, 
     String? email, 
-    String? password,
+    Password? password,
     bool? isValid,
   }) => RegisterFormCubitState(
     username: username ?? this.username,
@@ -40,6 +40,7 @@ class RegisterFormCubitState extends Equatable {
 
   @override
   List<Object> get props => [
+    isValid,
     username,
     email,
     password,

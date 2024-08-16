@@ -11,14 +11,27 @@ class RegisterCubit extends Cubit<RegisterFormCubitState> {
   void onSubmit() {
     print('State');
     print(state);
+    emit(
+      state.copyWith(
+        formStatus: FormStatus.validating,
+        username: Username.dirty( value: state.username.value ),
+        password: Password.dirty( value: state.password.value ),
+
+        isValid: Formz.validate([
+          state.username,
+          state.password
+        ]),
+      )
+    );
   }
 
   void usernameChange( String  value ){
     final username = Username.dirty( value: value );
+    print(value);
     emit(
       state.copyWith(
         username: username,
-        isValid: Formz.validate( [ username ] ),
+        isValid: Formz.validate( [ username, state.password ] ),
       )
     );
   }
@@ -32,9 +45,11 @@ class RegisterCubit extends Cubit<RegisterFormCubitState> {
   }
   
   void passwordChange( String  value ){
+    final password = Password.dirty( value: value );
     emit(
       state.copyWith(
-        password: value,
+        password: password,
+        isValid: Formz.validate( [ password, state.username ] ),
       )
     );
   }
