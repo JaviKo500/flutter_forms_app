@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forms_app/presentation/blocs/register_cubit/register_cubit.dart';
@@ -69,19 +71,8 @@ class _RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextFormField(
-            onChange: (value) {
-              registerCubit.emailChange(value);
-              // _formKey.currentState!.validate();
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Field is required';
-              if (value.trim().isEmpty) return 'Field is required';
-              final emailRegExp = RegExp(
-                r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
-              );
-              if (!emailRegExp.hasMatch(value)) return 'Email is invalid';
-              return null;
-            },
+            onChange: registerCubit.emailChange,
+            errorMessage: email.errorMessage,
             label: 'Email',
             hintText: 'example@mail.com',
             prefixIcon: Icons.email_rounded,
@@ -95,7 +86,7 @@ class _RegisterForm extends StatelessWidget {
             hintText: '*****',
             prefixIcon: Icons.lock,
             obscureText: true,
-            errorMessage: password.errorMessage,
+            errorMessage: email.errorMessage,
           ),
           const SizedBox(
             height: 20,

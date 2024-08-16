@@ -13,13 +13,13 @@ class RegisterFormCubitState extends Equatable {
 
   final bool isValid;
   final Username username;
-  final String email;
+  final Email email;
   final Password password;
 
   const RegisterFormCubitState({
     this.formStatus = FormStatus.invalid,
     this.username = const Username.pure(), 
-    this.email = '', 
+    this.email = const Email.pure(), 
     this.password = const Password.pure(),
     this.isValid = false,
   });
@@ -27,7 +27,7 @@ class RegisterFormCubitState extends Equatable {
   RegisterFormCubitState  copyWith({
     FormStatus? formStatus,
     Username? username, 
-    String? email, 
+    Email? email, 
     Password? password,
     bool? isValid,
   }) => RegisterFormCubitState(
