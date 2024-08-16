@@ -63,9 +63,7 @@ class _RegisterForm extends StatelessWidget {
             label: 'Username',
             hintText: 'Jk name',
             prefixIcon: Icons.supervised_user_circle_rounded,
-            errorMessage: username.isPure || username.isValid
-              ? null
-              : 'Required username',
+            errorMessage: username.errorMessage,
           ),
           const SizedBox(
             height: 20,
@@ -92,20 +90,12 @@ class _RegisterForm extends StatelessWidget {
             height: 20,
           ),
           CustomTextFormField(
-            onChange: (value) {
-              registerCubit.passwordChange(value);
-              // _formKey.currentState!.validate();
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) return 'Field is required';
-              if (value.trim().isEmpty) return 'Field is required';
-              if (value.trim().length < 6) return 'Requires min 6 characters';
-              return null;
-            },
+            onChange: registerCubit.passwordChange,
             label: 'Password',
             hintText: '*****',
             prefixIcon: Icons.lock,
             obscureText: true,
+            errorMessage: password.errorMessage,
           ),
           const SizedBox(
             height: 20,
